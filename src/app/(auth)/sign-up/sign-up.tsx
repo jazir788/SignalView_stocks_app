@@ -3,6 +3,7 @@
 import React from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { Button } from '@/components/ui/button'
+import InputField from '@/components/forms/inputField'
 
 const SignUpPage = () => {
    const { register, handleSubmit, control, formState: {errors, isSubmitting } } = useForm<SignUpFormData>(
@@ -34,7 +35,30 @@ const SignUpPage = () => {
       <h1 className='form-title'> Sign Up and Personalise</h1>
 
       <form onSubmit={handleSubmit(onSubmit)} className='space-y-5'>
-        {/* Inputs */}
+        <InputField
+          name="fullName"
+          label="Full Name"
+          placeholder = "John Doe"
+          register = {register}
+          error = {errors.fullName}
+          validation= {{required: 'Full name is required', minLength:2}} />
+
+          <InputField
+          name="email"
+          label="Email"
+          placeholder = "JohnDoe@gmail.com"
+          register = {register}
+          error = {errors.email}
+          validation= {{required: 'Email is required', pattern: /^\w+@\w+\.\w+$/, message: 'Email address is required' }} />
+
+           <InputField
+          name="password"
+          label="Password"
+          placeholder = "Enter a strong password"
+          type='password'
+          register = {register}
+          error = {errors.password}
+          validation= {{required: 'Password is required', minLength:10}} />
 
         <Button type="submit" disabled={isSubmitting} className='yellow-btn w-full mt-5'> 
           {isSubmitting ? 'Creating account' : 'Start Your Investing Journey'} 
