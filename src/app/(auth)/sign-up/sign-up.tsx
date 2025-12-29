@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/button'
 import InputField from '@/components/forms/inputField'
 import SelectField from '@/components/forms/SelectField'
 import { INVESTMENT_GOALS, PREFERRED_INDUSTRIES, RISK_TOLERANCE_OPTIONS } from '@/lib/constants'
-import CountrySelectField from '@/components/forms/CountrySelectField'
+import {CountrySelectField, CountrySelect }from '@/components/forms/CountrySelectField'
 
 const SignUpPage = () => {
    const { register, handleSubmit, control, formState: {errors, isSubmitting } } = useForm<SignUpFormData>(
@@ -65,12 +65,10 @@ const SignUpPage = () => {
 
 
           <CountrySelectField
-            name= "countrySelectField"
+            name= "country"
             label= "Country"
-            placeholder = "United Kingdom"
-           // options = {}
             control = {control}
-            error = {errors.country}
+            errors = {errors.country}
             required />
 
           <SelectField 
