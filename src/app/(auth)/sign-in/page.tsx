@@ -10,6 +10,7 @@ const SignIn = () => {
     const router = useRouter()
     const {
         register,
+        handleSubmit,
         formState: { errors, isSubmitting },
     } = useForm<SignInFormData>({
         defaultValues: {
@@ -19,12 +20,21 @@ const SignIn = () => {
         mode: 'onBlur',
     });
 
+     const onSubmit = async (data:SignInFormData) => {
+    try {
+      console.log(data)
+      
+    } catch (error) {
+      console.error(error)
+      
+    }
+  }
 
     return (
         <>
             <h1 className="form-title">Welcome back</h1>
 
-            <form className="space-y-5">
+            <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
                 <InputField
                     name="email"
                     label="Email"
