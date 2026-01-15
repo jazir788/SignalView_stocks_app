@@ -1,3 +1,4 @@
+import { success } from "better-auth";
 import { inngest } from "./client";
 import { PERSONALIZED_WELCOME_EMAIL_PROMPT } from "./prompts";
 
@@ -26,6 +27,21 @@ export const sendSignUpEmail = inngest.createFunction(
                         }
                     ]
                     }
+            })
+
+            await step.run('send-welcome-email', async() => {
+                const part = response.candidates?.[0].content?.parts?.[0];
+                const introText = (part && 'text' in part ? part.text : null ||  'Thanks for joining SignalView, you now have the tools to track markets and make smarter moves' )
+
+
+
+                // Email Sending logic
+
+                return {
+                    success:true,
+                    message: 'Welcome email sent successfully'
+                }
+
             })
     }
 )
