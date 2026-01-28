@@ -1,23 +1,31 @@
 'use server'
 
+import { success } from "better-auth"
 import { auth } from "../better-auth/auth"
 import { inngest } from "../inngest/client"
 
 
-export const signUpWithEmail = async(data: SignUpFormData) => {
+export const signUpWithEmail = async({email, password, fullName, country, investmentGoals, riskTolerance, preferredIndustry }: SignUpFormData) => {
     try {
         const response = await auth.api.signUpEmail({
-            body: {email: data.email, password: data.password, name: data.fullName}
+            body: {email, password, name: fullName}
         })
 
         if(response){
             await inngest.send({
                 name: 'app/user.created',
                 data: {
-                    email: data.email
+                    email, 
+                    name: fullName,
+                    country,
+                    investmentGoals,
+                    riskTolerance,
+                    preferredIndustry
                 }
             })
         }
+
+        return {success: true, data: response}
         
     } catch (error) {
         console.log('Sign Up failed', error)
